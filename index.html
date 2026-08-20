@@ -9,6 +9,24 @@
 <link rel="icon" href="favicon-32.png" type="image/png" sizes="32x32">
 <link rel="apple-touch-icon" href="apple-touch-icon.png">
 <link rel="stylesheet" href="style.css">
+<style>
+/* Nur Startseite: Horizont höher, damit die Überschrift
+   vollständig auf dem dunklen Meer steht (bessere Lesbarkeit)
+   und die Unterzeile nicht in den Sandstreifen läuft. */
+.horizont {
+  background:
+    radial-gradient(circle 120px at 78% 20%, rgba(233,196,120,.85) 0 18%, rgba(233,196,120,0) 60%),
+    linear-gradient(180deg,
+      #d3e2e7 0%, #eff1ea 15.8%,
+      #2c5a74 16%, #17394d 80.8%,
+      #dccda9 81%, #d0be93 100%);
+}
+.horizont-inner { padding: 4.8rem 1.25rem 5.2rem; }
+.horizont h1 { max-width: 15ch; }
+@media (min-width: 540px) {
+  .kein-umbruch { white-space: nowrap; }
+}
+</style>
 </head>
 <body>
 
@@ -28,7 +46,7 @@
 
 <div class="horizont">
   <div class="horizont-inner">
-    <h1>Urlaub, wo die Ostsee vor dem Balkon liegt.</h1>
+    <h1>Urlaub, wo die Ostsee <span class="kein-umbruch">vor dem Balkon liegt.</span></h1>
     <p class="unter">Helles 57-m²-Appartement im Haus „Seelust“ am Schönberger Strand –
     nur 50 Meter vom Ostseedeich, mit Blick auf Strand und Meer.</p>
   </div>
