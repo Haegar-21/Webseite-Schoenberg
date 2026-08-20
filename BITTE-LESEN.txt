@@ -1,0 +1,17 @@
+In diesen Ordner gehören die Original-Fotos aus dem Mirror der alten Website.
+
+Sie finden die Dateien im Mirror unter:
+  wp-content/uploads/2013/09/  bzw.  wp-content/uploads/2016/06/
+
+Bitte kopieren Sie die GROSSEN Versionen (ohne "-150x100" im Dateinamen)
+hierher und benennen Sie sie exakt so:
+
+  wohnung-1-balkon.jpg
+  wohnung-2-tv-ecke.jpg
+  wohnung-3-wohnzimmer.jpg
+  wohnung-4-wohnzimmer2.jpg
+  wohnung-5-schlafzimmer.jpg
+  wohnung-6-grundriss.jpg
+
+Solange die Bilder fehlen, zeigt die Galerie einen dezenten
+Ostsee-Platzhalter an - die Seite funktioniert also auch ohne Fotos.
