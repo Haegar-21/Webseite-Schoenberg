@@ -1,0 +1,345 @@
+/* ============================================================
+   Ferienwohnung am Schönberger Strand — Designsystem
+   Palette: Muschelweiß, Ostseeblau, Bernstein, Seegras
+   ============================================================ */
+
+@font-face {
+  font-family: "Fraunces";
+  src: url("fonts/Fraunces.woff2") format("woff2");
+  font-weight: 100 900;
+  font-display: swap;
+}
+@font-face {
+  font-family: "Karla";
+  src: url("fonts/Karla.woff2") format("woff2");
+  font-weight: 200 800;
+  font-display: swap;
+}
+
+:root {
+  --muschel: #fbf9f5;        /* Seitengrund */
+  --gischt:  #edf2f3;        /* helle Flächen */
+  --ostsee:  #16384c;        /* tiefes Ostseeblau */
+  --ostsee-2:#25546e;        /* helleres Blau */
+  --tinte:   #2d3a41;        /* Fließtext */
+  --bernstein:#b9822f;       /* Akzent: Bernstein */
+  --bernstein-hell:#e9d9bd;
+  --seegras: #6e8577;
+  --linie:   #dcd6ca;
+  --radius: 10px;
+  --breite: 62rem;
+}
+
+* { box-sizing: border-box; }
+html { scroll-behavior: smooth; }
+@media (prefers-reduced-motion: reduce) {
+  html { scroll-behavior: auto; }
+  *, *::before, *::after { animation: none !important; transition: none !important; }
+}
+
+body {
+  margin: 0;
+  background: var(--muschel);
+  color: var(--tinte);
+  font-family: "Karla", "Segoe UI", system-ui, sans-serif;
+  font-size: 1.0625rem;
+  line-height: 1.65;
+  -webkit-font-smoothing: antialiased;
+}
+
+a { color: var(--ostsee-2); text-decoration-color: var(--bernstein); text-underline-offset: 3px; }
+a:hover { color: var(--bernstein); }
+a:focus-visible, button:focus-visible {
+  outline: 3px solid var(--bernstein);
+  outline-offset: 3px;
+  border-radius: 3px;
+}
+
+/* ---------- Kopfbereich ---------- */
+
+.top {
+  background: var(--ostsee);
+  color: #f4efe6;
+}
+.top-inner {
+  max-width: var(--breite);
+  margin: 0 auto;
+  padding: 1.1rem 1.25rem .9rem;
+  display: flex;
+  flex-wrap: wrap;
+  align-items: baseline;
+  gap: .35rem 1.5rem;
+  justify-content: space-between;
+}
+.marke {
+  font-family: "Fraunces", Georgia, serif;
+  font-weight: 560;
+  font-size: 1.28rem;
+  letter-spacing: .01em;
+  color: #f7f3ea;
+  text-decoration: none;
+}
+.marke:hover { color: var(--bernstein-hell); }
+.marke small {
+  display: block;
+  font-family: "Karla", sans-serif;
+  font-weight: 400;
+  font-size: .78rem;
+  letter-spacing: .22em;
+  text-transform: uppercase;
+  color: #b8c6cd;
+  margin-top: .15rem;
+}
+
+nav.haupt { display: flex; flex-wrap: wrap; gap: .1rem .35rem; }
+nav.haupt a {
+  color: #dfe7ea;
+  text-decoration: none;
+  font-size: .95rem;
+  padding: .35rem .6rem;
+  border-radius: 6px;
+}
+nav.haupt a:hover { color: #fff; background: rgba(255,255,255,.08); }
+nav.haupt a[aria-current="page"] {
+  color: var(--ostsee);
+  background: var(--bernstein-hell);
+  font-weight: 700;
+}
+
+/* ---------- Held / Horizont ----------
+   Signatur der Seite: eine ruhige Horizontlinie aus
+   Himmel, Sonne (Bernstein), Meer und Sand.        */
+
+.horizont {
+  position: relative;
+  overflow: hidden;
+  color: #fff;
+  background:
+    radial-gradient(circle 130px at 78% 30%, rgba(233,196,120,.85) 0 18%, rgba(233,196,120,0) 60%),
+    linear-gradient(180deg,
+      #d3e2e7 0%, #eff1ea 34.8%,
+      #2c5a74 35%, #17394d 71.8%,
+      #dccda9 72%, #d0be93 100%);
+}
+.horizont-inner {
+  max-width: var(--breite);
+  margin: 0 auto;
+  padding: 4.6rem 1.25rem 4.2rem;
+}
+.horizont h1 {
+  font-family: "Fraunces", Georgia, serif;
+  font-weight: 460;
+  font-size: clamp(2rem, 5.4vw, 3.4rem);
+  line-height: 1.12;
+  margin: 0 0 .6rem;
+  max-width: 21ch;
+  text-shadow: 0 1px 14px rgba(10,30,42,.45);
+}
+.horizont p.unter {
+  font-size: 1.12rem;
+  max-width: 44ch;
+  margin: 0;
+  color: #eaf1f3;
+  text-shadow: 0 1px 10px rgba(10,30,42,.5);
+}
+
+/* Fakten-Leiste auf dem "Sand" */
+.fakten {
+  background: #efe7d5;
+  border-bottom: 1px solid var(--linie);
+}
+.fakten ul {
+  max-width: var(--breite);
+  margin: 0 auto;
+  padding: .85rem 1.25rem;
+  list-style: none;
+  display: flex;
+  flex-wrap: wrap;
+  gap: .4rem 2.4rem;
+}
+.fakten li {
+  font-size: .95rem;
+  letter-spacing: .04em;
+  color: #5d5238;
+}
+.fakten b {
+  font-family: "Fraunces", Georgia, serif;
+  font-weight: 600;
+  font-size: 1.08rem;
+  color: var(--ostsee);
+  margin-right: .3rem;
+}
+
+/* ---------- Unterseiten-Kopf ---------- */
+
+.seitenkopf {
+  background:
+    linear-gradient(180deg, #d9e5e9 0%, #eef1ec 64.8%, #2c5a74 65%, #17394d 100%);
+  color: var(--ostsee);
+}
+.seitenkopf .horizont-inner { padding: 3rem 1.25rem 2.2rem; }
+.seitenkopf h1 {
+  font-family: "Fraunces", Georgia, serif;
+  font-weight: 500;
+  font-size: clamp(1.8rem, 4.5vw, 2.6rem);
+  margin: 0;
+  text-shadow: none;
+  color: var(--ostsee);
+}
+.seitenkopf p.unter { color: #3d5560; text-shadow: none; margin-top: .4rem; }
+
+/* ---------- Inhalt ---------- */
+
+main {
+  max-width: var(--breite);
+  margin: 0 auto;
+  padding: 3rem 1.25rem 4rem;
+}
+.schmal { max-width: 46rem; }
+
+h2 {
+  font-family: "Fraunces", Georgia, serif;
+  font-weight: 540;
+  font-size: 1.55rem;
+  color: var(--ostsee);
+  margin: 2.6rem 0 .9rem;
+}
+main > h2:first-child, section > h2:first-child { margin-top: 0; }
+
+/* Horizont-Unterstreichung: Sand trifft Meer */
+h2::after {
+  content: "";
+  display: block;
+  width: 4.2rem;
+  height: 3px;
+  margin-top: .55rem;
+  background: linear-gradient(90deg, var(--bernstein) 0 40%, var(--ostsee-2) 40% 100%);
+  border-radius: 2px;
+}
+
+p { margin: 0 0 1.05rem; }
+
+/* Galerie */
+.galerie {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(230px, 1fr));
+  gap: 1.1rem;
+  margin: 1.6rem 0 2.2rem;
+  padding: 0;
+  list-style: none;
+}
+.galerie figure { margin: 0; }
+.galerie a { display: block; border-radius: var(--radius); overflow: hidden; }
+.galerie img {
+  display: block;
+  width: 100%;
+  aspect-ratio: 3 / 2;
+  object-fit: cover;
+  background:
+    radial-gradient(circle 60px at 75% 28%, rgba(233,196,120,.9) 0 30%, rgba(233,196,120,0) 70%),
+    linear-gradient(180deg, #dfe9ec 0 54.8%, #2c5a74 55% 82%, #dccda9 82.2% 100%);
+  color: var(--ostsee);
+  font-size: .85rem;
+  transition: transform .35s ease;
+}
+.galerie a:hover img { transform: scale(1.04); }
+.galerie figcaption {
+  font-size: .9rem;
+  color: #5b6a72;
+  padding: .45rem .15rem 0;
+}
+
+/* Merkmal-Karten */
+.karten {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+  gap: 1.1rem;
+  margin: 1.4rem 0;
+  padding: 0;
+  list-style: none;
+}
+.karten li {
+  background: #fff;
+  border: 1px solid var(--linie);
+  border-radius: var(--radius);
+  padding: 1.15rem 1.25rem 1.05rem;
+}
+.karten h3 {
+  font-family: "Fraunces", Georgia, serif;
+  font-weight: 560;
+  font-size: 1.08rem;
+  color: var(--ostsee);
+  margin: 0 0 .45rem;
+}
+.karten p { margin: 0; font-size: .98rem; }
+
+/* Hinweiskasten & Buttons */
+.kasten {
+  background: var(--gischt);
+  border-left: 4px solid var(--bernstein);
+  border-radius: 0 var(--radius) var(--radius) 0;
+  padding: 1.1rem 1.3rem;
+  margin: 1.6rem 0;
+}
+.kasten p:last-child { margin-bottom: 0; }
+
+.knopf {
+  display: inline-block;
+  background: var(--ostsee);
+  color: #fff;
+  text-decoration: none;
+  font-weight: 700;
+  padding: .75rem 1.5rem;
+  border-radius: 999px;
+  margin: .3rem 0;
+}
+.knopf:hover { background: var(--bernstein); color: #fff; }
+.knopf.zweit { background: transparent; color: var(--ostsee); box-shadow: inset 0 0 0 2px var(--ostsee); }
+.knopf.zweit:hover { color: var(--bernstein); box-shadow: inset 0 0 0 2px var(--bernstein); }
+
+/* Anfahrt-Liste */
+.anfahrt { list-style: none; padding: 0; display: grid; gap: .6rem; margin: 1.2rem 0; }
+.anfahrt a {
+  display: flex; justify-content: space-between; align-items: baseline; gap: 1rem;
+  background: #fff; border: 1px solid var(--linie); border-radius: var(--radius);
+  padding: .8rem 1.1rem; text-decoration: none; color: var(--tinte);
+}
+.anfahrt a:hover { border-color: var(--bernstein); color: var(--ostsee); }
+.anfahrt b { font-family: "Fraunces", Georgia, serif; font-weight: 560; color: var(--ostsee); }
+.anfahrt span { font-size: .88rem; color: #75828a; }
+
+/* Adresse */
+address { font-style: normal; line-height: 1.7; }
+
+/* Rechtstexte */
+.recht h2 { font-size: 1.25rem; margin-top: 2.2rem; }
+.recht h3 { font-size: 1.05rem; color: var(--ostsee); margin: 1.6rem 0 .5rem; }
+.recht ul { padding-left: 1.2rem; }
+
+/* ---------- Fuß ---------- */
+
+footer {
+  background: var(--ostsee);
+  color: #b8c6cd;
+  margin-top: 2rem;
+}
+.fuss-inner {
+  max-width: var(--breite);
+  margin: 0 auto;
+  padding: 2rem 1.25rem 2.4rem;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 1rem 2.5rem;
+  justify-content: space-between;
+  font-size: .92rem;
+}
+footer a { color: #dfe7ea; }
+footer a:hover { color: var(--bernstein-hell); }
+.fuss-marke { font-family: "Fraunces", Georgia, serif; font-size: 1.05rem; color: #f4efe6; }
+.fuss-nav { display: flex; flex-wrap: wrap; gap: .3rem 1.2rem; list-style: none; margin: 0; padding: 0; }
+
+@media (max-width: 640px) {
+  .top-inner { flex-direction: column; align-items: flex-start; }
+  nav.haupt { margin-left: -.6rem; }
+  .horizont-inner { padding: 3.2rem 1.25rem 3rem; }
+}
