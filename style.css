@@ -55,6 +55,23 @@ a:focus-visible, button:focus-visible {
   border-radius: 3px;
 }
 
+/* Sprunglink: nur sichtbar, wenn er mit der Tastatur angesteuert wird */
+
+.sprung {
+  position: absolute;
+  z-index: 10;
+  top: -4rem;
+  left: .75rem;
+  background: var(--bernstein-hell);
+  color: var(--ostsee);
+  font-weight: 700;
+  text-decoration: none;
+  padding: .6rem 1.1rem;
+  border-radius: 0 0 var(--radius) var(--radius);
+  transition: top .15s ease;
+}
+.sprung:focus { top: 0; color: var(--ostsee); }
+
 /* ---------- Kopfbereich ---------- */
 
 .top {
@@ -64,12 +81,7 @@ a:focus-visible, button:focus-visible {
 .top-inner {
   max-width: var(--breite);
   margin: 0 auto;
-  padding: 1.1rem 1.25rem .9rem;
-  display: flex;
-  flex-wrap: wrap;
-  align-items: baseline;
-  gap: .35rem 1.5rem;
-  justify-content: space-between;
+  padding: 1rem 1.25rem .95rem;
 }
 .marke {
   font-family: "Fraunces", Georgia, serif;
@@ -91,7 +103,18 @@ a:focus-visible, button:focus-visible {
   margin-top: .15rem;
 }
 
-nav.haupt { display: flex; flex-wrap: wrap; gap: .1rem .35rem; }
+nav.haupt {
+  background: var(--ostsee);
+  border-bottom: 3px solid var(--bernstein);
+}
+.haupt-inner {
+  max-width: var(--breite);
+  margin: 0 auto;
+  padding: .45rem 1.25rem .55rem;
+  display: flex;
+  flex-wrap: wrap;
+  gap: .1rem .35rem;
+}
 nav.haupt a {
   color: #dfe7ea;
   text-decoration: none;
@@ -106,44 +129,70 @@ nav.haupt a[aria-current="page"] {
   font-weight: 700;
 }
 
-/* ---------- Held / Horizont ----------
-   Signatur der Seite: eine ruhige Horizontlinie aus
-   Himmel, Sonne (Bernstein), Meer und Sand.        */
+/* ---------- Kopfbild ----------
+   Auf jeder Seite ein Foto der Ostsee; der Seitentitel steht
+   darauf, abgedunkelt zur Fußseite hin (Lesbarkeit). Das Bild
+   bleibt auf Inhaltsbreite, damit es nicht hochskaliert und
+   dadurch unscharf wird (Vorlagen sind 940 px breit).         */
 
-.horizont {
+.kopfbild {
   position: relative;
-  overflow: hidden;
-  color: #fff;
-  background:
-    radial-gradient(circle 130px at 78% 30%, rgba(233,196,120,.85) 0 18%, rgba(233,196,120,0) 60%),
-    linear-gradient(180deg,
-      #d3e2e7 0%, #eff1ea 34.8%,
-      #2c5a74 35%, #17394d 71.8%,
-      #dccda9 72%, #d0be93 100%);
+  display: flex;
+  align-items: flex-end;
+  min-height: clamp(9.5rem, 21vw, 13rem);
+  background: var(--ostsee);
 }
-.horizont-inner {
+
+/* Das Foto füllt den Streifen; der Titel wächst notfalls darüber hinaus */
+.kopfbild img {
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 100%;
+  max-width: var(--breite);
+  height: 100%;
+  object-fit: cover;
+  object-position: 50% 55%;
+}
+
+/* Abdunklung, damit die Schrift auf jedem Foto lesbar bleibt */
+.kopfbild-text {
+  position: relative;
+  width: 100%;
   max-width: var(--breite);
   margin: 0 auto;
-  padding: 4.6rem 1.25rem 4.2rem;
+  padding-top: 4.5rem;
+  background: linear-gradient(180deg,
+    rgba(11,32,44,0) 0%, rgba(11,32,44,.28) 42%, rgba(11,32,44,.74) 100%);
+  color: #fff;
 }
-.horizont h1 {
+.kopfbild-inner {
+  max-width: var(--breite);
+  margin: 0 auto;
+  padding: 0 1.25rem 1.15rem;
+}
+.kopfbild h1 {
   font-family: "Fraunces", Georgia, serif;
-  font-weight: 460;
-  font-size: clamp(2rem, 5.4vw, 3.4rem);
+  font-weight: 480;
+  font-size: clamp(1.65rem, 3.8vw, 2.5rem);
   line-height: 1.12;
-  margin: 0 0 .6rem;
-  max-width: 21ch;
-  text-shadow: 0 1px 14px rgba(10,30,42,.45);
-}
-.horizont p.unter {
-  font-size: 1.12rem;
-  max-width: 44ch;
   margin: 0;
-  color: #eaf1f3;
-  text-shadow: 0 1px 10px rgba(10,30,42,.5);
+  max-width: 21ch;
+  color: #fff;
+  text-shadow: 0 2px 14px rgba(8,26,36,.55);
+}
+.kopfbild p.unter {
+  font-size: clamp(.98rem, 1.6vw, 1.12rem);
+  line-height: 1.45;
+  max-width: 46ch;
+  margin: .4rem 0 0;
+  color: #e9eff2;
+  text-shadow: 0 1px 10px rgba(8,26,36,.6);
 }
 
-/* Fakten-Leiste auf dem "Sand" */
+/* Fakten-Leiste unter dem Kopfbild */
 .fakten {
   background: #efe7d5;
   border-bottom: 1px solid var(--linie);
@@ -170,24 +219,6 @@ nav.haupt a[aria-current="page"] {
   margin-right: .3rem;
 }
 
-/* ---------- Unterseiten-Kopf ---------- */
-
-.seitenkopf {
-  background:
-    linear-gradient(180deg, #d9e5e9 0%, #eef1ec 64.8%, #2c5a74 65%, #17394d 100%);
-  color: var(--ostsee);
-}
-.seitenkopf .horizont-inner { padding: 3rem 1.25rem 2.2rem; }
-.seitenkopf h1 {
-  font-family: "Fraunces", Georgia, serif;
-  font-weight: 500;
-  font-size: clamp(1.8rem, 4.5vw, 2.6rem);
-  margin: 0;
-  text-shadow: none;
-  color: var(--ostsee);
-}
-.seitenkopf p.unter { color: #3d5560; text-shadow: none; margin-top: .4rem; }
-
 /* ---------- Inhalt ---------- */
 
 main {
@@ -197,17 +228,17 @@ main {
 }
 .schmal { max-width: 46rem; }
 
-h2 {
+h2, main > h1 {
   font-family: "Fraunces", Georgia, serif;
   font-weight: 540;
   font-size: 1.55rem;
   color: var(--ostsee);
   margin: 2.6rem 0 .9rem;
 }
-main > h2:first-child, section > h2:first-child { margin-top: 0; }
+main > h2:first-child, main > h1:first-child, section > h2:first-child { margin-top: 0; }
 
 /* Horizont-Unterstreichung: Sand trifft Meer */
-h2::after {
+h2::after, main > h1::after {
   content: "";
   display: block;
   width: 4.2rem;
@@ -235,9 +266,7 @@ p { margin: 0 0 1.05rem; }
   width: 100%;
   aspect-ratio: 3 / 2;
   object-fit: cover;
-  background:
-    radial-gradient(circle 60px at 75% 28%, rgba(233,196,120,.9) 0 30%, rgba(233,196,120,0) 70%),
-    linear-gradient(180deg, #dfe9ec 0 54.8%, #2c5a74 55% 82%, #dccda9 82.2% 100%);
+  background: linear-gradient(180deg, #dfe9ec 0 54.8%, #2c5a74 55% 82%, #dccda9 82.2% 100%);
   color: var(--ostsee);
   font-size: .85rem;
   transition: transform .35s ease;
@@ -339,7 +368,7 @@ footer a:hover { color: var(--bernstein-hell); }
 .fuss-nav { display: flex; flex-wrap: wrap; gap: .3rem 1.2rem; list-style: none; margin: 0; padding: 0; }
 
 @media (max-width: 640px) {
-  .top-inner { flex-direction: column; align-items: flex-start; }
-  nav.haupt { margin-left: -.6rem; }
-  .horizont-inner { padding: 3.2rem 1.25rem 3rem; }
+  .haupt-inner { margin-left: -.6rem; margin-right: -.6rem; }
+  .kopfbild-text { padding-top: 3rem; }
+  .kopfbild-inner { padding-bottom: .9rem; }
 }
