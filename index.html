@@ -117,5 +117,97 @@ Im Haus befindet sich eine Gemeinschaftswaschmaschine.</p>
   </div>
 </footer>
 
+<dialog class="lightbox" id="lightbox" aria-label="Bildergalerie">
+  <button type="button" class="lb-schliessen" data-lb="schliessen" aria-label="Schließen">&times;</button>
+  <button type="button" class="lb-pfeil lb-links" data-lb="zurueck" aria-label="Vorheriges Bild">&#10094;</button>
+  <figure class="lb-figur">
+    <img class="lb-bild" src="" alt="">
+    <figcaption class="lb-text"><span class="lb-titel"></span> <span class="lb-zaehler"></span></figcaption>
+  </figure>
+  <button type="button" class="lb-pfeil lb-rechts" data-lb="weiter" aria-label="Nächstes Bild">&#10095;</button>
+</dialog>
+
+<script>
+(function () {
+  var links = Array.prototype.slice.call(document.querySelectorAll('.galerie a'));
+  var box = document.getElementById('lightbox');
+  if (!links.length || !box || typeof box.showModal !== 'function') return;
+
+  var bild = box.querySelector('.lb-bild');
+  var titel = box.querySelector('.lb-titel');
+  var zaehler = box.querySelector('.lb-zaehler');
+  var aktuell = 0;
+  var startX = null;
+
+  function zeige(i) {
+    aktuell = (i + links.length) % links.length;
+    var a = links[aktuell];
+    var img = a.querySelector('img');
+    var cap = a.parentNode.querySelector('figcaption');
+    bild.src = a.getAttribute('href');
+    bild.alt = img ? img.alt : '';
+    titel.textContent = cap ? cap.textContent : '';
+    zaehler.textContent = '(' + (aktuell + 1) + ' / ' + links.length + ')';
+    // Nachbarbilder vorladen
+    [aktuell + 1, aktuell - 1].forEach(function (n) {
+      var v = new Image();
+      v.src = links[(n + links.length) % links.length].getAttribute('href');
+    });
+  }
+
+  function oeffne(i) {
+    zeige(i);
+    box.showModal();
+    document.body.classList.add('lb-offen');
+  }
+
+  function schliesse() {
+    box.close();
+  }
+
+  links.forEach(function (a, i) {
+    a.addEventListener('click', function (e) {
+      e.preventDefault();
+      oeffne(i);
+    });
+  });
+
+  box.addEventListener('click', function (e) {
+    var t = e.target.closest('[data-lb]');
+    if (t) {
+      var was = t.getAttribute('data-lb');
+      if (was === 'weiter') zeige(aktuell + 1);
+      else if (was === 'zurueck') zeige(aktuell - 1);
+      else schliesse();
+      return;
+    }
+    // Klick auf den dunklen Hintergrund (außerhalb des Bildes) schließt
+    if (e.target === box) schliesse();
+  });
+
+  box.addEventListener('close', function () {
+    document.body.classList.remove('lb-offen');
+    bild.src = '';
+    links[aktuell].focus();
+  });
+
+  box.addEventListener('keydown', function (e) {
+    if (e.key === 'ArrowRight') { e.preventDefault(); zeige(aktuell + 1); }
+    else if (e.key === 'ArrowLeft') { e.preventDefault(); zeige(aktuell - 1); }
+  });
+
+  // Wischen auf Touch-Geräten
+  box.addEventListener('touchstart', function (e) {
+    startX = e.changedTouches[0].clientX;
+  }, { passive: true });
+  box.addEventListener('touchend', function (e) {
+    if (startX === null) return;
+    var dx = e.changedTouches[0].clientX - startX;
+    startX = null;
+    if (Math.abs(dx) > 50) zeige(dx < 0 ? aktuell + 1 : aktuell - 1);
+  }, { passive: true });
+})();
+</script>
+
 </body>
 </html>
